@@ -1,2 +1,2 @@
-# SOC 201 Challenges
-This is the challenge repository for the SOC 201 curriculum.
+# SOC 201 Labs
+This is the lab repository for the SOC 201 curriculum.
