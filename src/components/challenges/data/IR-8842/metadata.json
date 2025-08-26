@@ -1,0 +1,122 @@
+{
+    "uid": "IR-8842",
+    "title": "Kansa Collection and Analysis Challenge",
+    "assignee": "Tier 2 SOC – Intrusion Hunting",
+    "module": "Collection at Scale",
+    "status": "In Progress",
+    "time_estimate": "30 minutes",
+    "tags": ["kansa", "artifact analysis", "stacking", "aggregation"],
+    "instructions_path": "/data/IR-8842/instructions.html",
+
+    "questions": [
+        {
+            "quid": "2e4836dc",
+            "question": "After stacking the <b>DNSCache</b> artifacts, which <b>two domains</b> stand out as the most rare and worthy of further investigation? </br></br><i>Answer format: domain1, domain2.</i>",
+            "type": "text_input",
+            "hint": "An analysis script that can <i>stack</i> <code>DNSCache</code> output should be able to surface the rare (least frequent) DNS lookups in the dataset.",
+            "placeholder": "****.*****************.***, ***.*****************.***",
+            "correct_answers": [
+                "gist.githubusercontent.com, raw.githubusercontent.com",
+                "gist.githubusercontent.com raw.githubusercontent.com",
+                "raw.githubusercontent.com, gist.githubusercontent.com",
+                "raw.githubusercontent.com gist.githubusercontent.com",
+                "gist[.]githubusercontent[.]com, raw[.]githubusercontent[.]com",
+                "gist[.]githubusercontent[.]com raw[.]githubusercontent[.]com",
+                "raw[.]githubusercontent[.]com, gist[.]githubusercontent[.]com",
+                "raw[.]githubusercontent[.]com gist[.]githubusercontent[.]com",
+                "gist.githubusercontent.com,raw.githubusercontent.com",
+                "gist.githubusercontent.comraw.githubusercontent.com",
+                "raw.githubusercontent.com,gist.githubusercontent.com",
+                "raw.githubusercontent.comgist.githubusercontent.com",
+                "gist[.]githubusercontent[.]com,raw[.]githubusercontent[.]com",
+                "gist[.]githubusercontent[.]comraw[.]githubusercontent[.]com",
+                "raw[.]githubusercontent[.]com,gist[.]githubusercontent[.]com",
+                "raw[.]githubusercontent[.]comgist[.]githubusercontent[.]com"
+            ]
+        },
+        {
+            "quid": "8f97cc2e",
+            "question": "Which <b>workstation</b> were the cached entries identified in the previous question observed on?",
+            "type": "text_input",
+            "hint": "The <a href=\"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-string?view=powershell-7.5\" target=\"_blank\">Select-String</a> cmdlet can be used to finds text (like a domain name) within files.",
+            "placeholder": "***-****",
+            "correct_answers": [
+                "WKS-94ZA",
+                "WKS 94ZA",
+                "WKS94ZA",
+                "94ZA"
+            ]
+        },
+        {
+            "quid": "9a21bc5a",
+            "question": "After stacking process names across the environment, which <b>two rare executables</b> stand out as suspicious? </br></br><i>Answer format: name1, name2.</i>",
+            "type": "text_input",
+            "hint": "When stacking processes, the most common Windows executables will sink to the bottom of the suspicion list. Focus on the processes with very low counts, especially those with unusual or random-looking names.",
+            "placeholder": "********.***, ********.***",
+            "correct_answers": [
+                "ggWmgFMT.exe, L9XJe2iA.exe",
+                "ggWmgFMT.exe L9XJe2iA.exe",
+                "ggWmgFMT, L9XJe2iA",
+                "ggWmgFMT L9XJe2iA",
+                "L9XJe2iA.exe, ggWmgFMT.exe",
+                "L9XJe2iA.exe ggWmgFMT.exe",
+                "L9XJe2iA, ggWmgFMT",
+                "L9XJe2iA ggWmgFMT"
+            ]
+        },
+        {
+            "quid": "aa1c10f7",
+            "question": "What <b>directory</b> were the two suspicious processes located in?",
+            "type": "text_input",
+            "hint": "Try using an analysis script to stack <b>process paths</b> instead of just names. Most legitimate Windows executables live in <code>C:\\Windows\\System32</code> or under <code>C:\\Program Files</code>, so any rare entries running from a non-standard location should draw attention.",
+            "placeholder": "*:\\*******",
+            "correct_answers": [
+                "C:\\Windows",
+                "C:\\\\Windows",
+                "Windows"
+            ]
+        },
+        {
+            "quid": "d9e4f2ab",
+            "question": "Submit the MD5 hashes to <b>VirusTotal</b>. What <b>popular threat label</b> is assigned to the specific executable that uses <b>RemCom</b> for remote execution?",
+            "type": "text_input",
+            "hint": "Determine the <b>MD5 hashes</b> of the previously identified binaries using the raw CSV output or the <code>Get-ProcsWMICLIMD5Stack.ps1</code> script from Kansa. From there, look up these hashes on a malware database like <b>VirusTotal</b> and check the <b>Popular threat label</b> value. </br></br><b>Bonus:</b> Read up on <b>RemCom</b> and how tools like <a href=\"https://redcanary.com/blog/threat-detection/threat-hunting-psexec-lateral-movement/\" target=\"_blank\">Impacket's PsExec</a> leverage it for remote command execution.",
+            "placeholder": "********.**********/******",
+            "correct_answers": [
+                "hacktool.remoteexec/remcom",
+                "hacktool.remoteexec",
+                "remoteexec/remcom",
+                "hacktool.remcom",
+                "W32.RemoteAdmin:SPR.22lu.1201",
+                "Trojan/Win.RemCom.R237878"
+            ]
+        },
+        {
+            "quid": "d5051b19",
+            "question": "What <b>IP address</b> did one of the systems establish a suspicious <b>network connection</b> with?",
+            "type": "text_input",
+            "hint": "You might need to create a custom <b>Netstat</b> stacking script to aggregate established <b>network connections</b> by <b>process</b> across the environment. From the rarest entries, identify the <b>remote IP address</b> that the suspicious process communicated with.",
+            "placeholder": "**.*.*.*",
+            "correct_answers": [
+                "10.0.2.6",
+                "10[.]0[.]2[.]6"
+            ]
+        },
+
+        {
+            "quid": "b87d301f",
+            "question": "Which rare <b>Prefetch</b> entry represents an executable that appears legitimate by name but does not exist in a normal Windows system?",
+            "type": "text_input",
+            "hint": "Look for rare Prefetch entries that don't match known Windows executables. Cross-reference the name with a known-good system or research it online. This is a good example of an <i>Ambiguous Identifier</i> anomaly.",
+            "placeholder": "**********.***",
+            "correct_answers": [
+                "appruntime.exe",
+                "appruntime",
+                "C:\\Windows\\Prefetch\\APPRUNTIME.EXE-BA326N31.pf",
+                "APPRUNTIME.EXE-BA326N31.pf"
+            ]
+        }
+
+
+  ]
+}
