@@ -115,8 +115,113 @@
                 "C:\\Windows\\Prefetch\\APPRUNTIME.EXE-BA326N31.pf",
                 "APPRUNTIME.EXE-BA326N31.pf"
             ]
-        }
-
+        },
+        {
+            "quid": "b12b81a9",
+            "question": "What two <b>systems</b> did the <code>agadmin</code> user account establish SMB sessions with? </br></br><i>Answer format: System1, System2.</i>",
+            "type": "text_input",
+            "hint": "Stack the <b>SmbSession data</b> by <b>ClientComputerName</b> and <b>ClientUserName</b>. You'll notice the <code>agadmin</code> account establishing sessions with two different systems in the network.",
+            "placeholder": "**.*.*.*, **-**",
+            "correct_answers": [
+                "10.0.2.6, FS-01",
+                "FS-01, 10.0.2.6",
+                "10.0.2.6 FS-01",
+                "FS-01 10.0.2.6",
+                "10[.]0[.]2[.]6, FS-01",
+                "FS-01, 10[.]0[.]2[.]6",
+                "10[.]0[.]2[.]6 FS-01",
+                "FS-01 10[.]0[.]2[.]6"              
+            ]
+        },
+        {
+            "quid": "cc241aaa",
+            "question": "Stacking <b>SMBShare</b> activity across the environment reveals a non-standard share that was created on a workstation. What specific <b>directory path</b> is being shared?",
+            "type": "text_input",
+            "hint": "Most default administrative shares like <code>C$</code>, <code>ADMIN$</code>, and <code>IPC$</code> map to standard Windows directories. Any additional shares outside those defaults should be investigated closely to see what underlying folder is being exposed.",
+            "placeholder": "*:\\*****\\******\\*****",
+            "correct_answers": [
+                "C:\\Users\\Public\\Music",
+                "C:\\\\Users\\\\Public\\\\Music",
+                "Users\\Public\\Music"
+            ]
+        },
+        {
+            "quid": "ef102ff5",
+            "question": "What is the name of the <b>local administrator</b> account that the attacker likely created as a backdoor?",
+            "type": "text_input",
+            "hint": "Stack <b>LocalAdmin</b> activity across the environment to see which accounts are most common and which glaring anomaly stands out from the baseline.",
+            "placeholder": "********",
+            "correct_answers": [
+                "helpdesk"
+            ]
+        },
+        {
+            "quid": "a7f3e2a1",
+            "question": "What is the <b>name</b> of the rare <b>scheduled task</b> that is configured to run a suspicious executable?",
+            "type": "text_input",
+            "hint": "Check the stacked results from the <b>Get-SchedTasksAllStack.ps1</b> script. Focus on tasks that only appear once and look for one that runs an unusual executable that was previously identified as malware.",
+            "placeholder": "TaskName",
+            "correct_answers": [
+                "HealthCheck",
+                "\\HealthCheck"
+            ]
+        },
+        {
+            "quid": "f3b2c7e9",
+            "question": "What is the name of the <b>service</b> that was configured with a malicious service <b>recovery/failure action</b>?",
+            "type": "text_input",
+            "hint": "Look at the services with unusual command lines in the <b>SvcFail</b> stack. One of them shares its name with a standard Windows printing service but was abused for persistence.",
+            "placeholder": "*******",
+            "correct_answers": [
+                "Spooler",
+                "Print Spooler",
+                "PrintSpooler"
+            ]
+        },
+        {
+            "quid": "a1d4f9b2",
+            "question": "What are the <b>names</b> of the two other malicious <b>services</b> that were implanted in the network? </br></br><i>Answer format: service1, service2.</i>",
+            "type": "text_input",
+            "hint": "Check the <b>SvcAll</b> stack for services with unique or unusual names that appear only once. The <b>Path MD5Sum</b> field will contain the MD5 hash of the service binary.",
+            "placeholder": "********* ****** ****, ****",
+            "correct_answers": [
+                "vmhK, Diagostic System Host",
+                "vmhK Diagostic System Host",
+                "Diagostic System Host, vmhK",
+                "Diagostic System Host vmhK",
+                "vmhK, Diagnostic System Host",
+                "vmhK Diagnostic System Host",
+                "Diagnostic System Host, vmhK",
+                "Diagnostic System Host vmhK"
+            ]
+        },
+        {
+            "quid": "9c6d2a81",
+            "question": "What is the full <b>URL</b> that the attacker's malicious <b>registry run key</b> entry connects back to?",
+            "type": "text_input",
+            "hint": "Analyze the decoded <b>Base64 PowerShell payload</b>. It reveals a TCP reverse shell client connecting outbound to a remote host over port 443. </br></br><b>Tip:</b> Ensure you don't confuse a malicious registry run key entry with a malicious WMI database entry. What you're looking for here is an encoded reverse shell payload.",
+            "placeholder": "*****://********.****.**/",
+            "correct_answers": [
+                "https://dormaire.euwf.cn/",
+                "https://dormaire.euwf.cn",
+                "dormaire.euwf.cn/",
+                "dormaire.euwf.cn"
+            ]
+        },
+{
+    "quid": "a7f9c2d1",
+    "question": "Which <b>URL</b> does the malicious <b>WMI Event Consumer</b> reach out to in order to fetch its payload?",
+    "type": "text_input",
+    "hint": "Check the <b>CommandLineTemplate</b> for the rare <b>WMIEvtConsumer</b> entry that uses PowerShell to download a script.",
+    "placeholder": "*****://****-***.*****.***:****/*",
+    "correct_answers": [
+        "https://fini-27q.pages.dev:8080/a",
+        "fini-27q.pages.dev:8080/a",
+        "hxxps[://]fini-27q[.]pages[.]dev:8080/a",
+        "https[://]fini-27q[.]pages[.]dev:8080/a",
+        "https://fini-27q[.]pages[.]dev:8080/a"
+    ]
+}
 
   ]
 }
