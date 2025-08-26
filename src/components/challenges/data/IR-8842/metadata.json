@@ -159,7 +159,7 @@
             "quid": "a7f3e2a1",
             "question": "What is the <b>name</b> of the rare <b>scheduled task</b> that is configured to run a suspicious executable?",
             "type": "text_input",
-            "hint": "Check the stacked results from the <b>Get-SchedTasksAllStack.ps1</b> script. Focus on tasks that only appear once and look for one that runs an unusual executable that was previously identified as malware.",
+            "hint": "Check the stacked results from the <code>Get-SchedTasksAllStack.ps1</code> script. Focus on tasks that only appear once and look for one that runs an unusual executable that was previously identified as malware.",
             "placeholder": "TaskName",
             "correct_answers": [
                 "HealthCheck",
@@ -199,7 +199,7 @@
             "quid": "9c6d2a81",
             "question": "What is the full <b>URL</b> that the attacker's malicious <b>registry run key</b> entry connects back to?",
             "type": "text_input",
-            "hint": "Analyze the decoded <b>Base64 PowerShell payload</b>. It reveals a TCP reverse shell client connecting outbound to a remote host over port 443. </br></br><b>Tip:</b> Ensure you don't confuse a malicious registry run key entry with a malicious WMI database entry. What you're looking for here is an encoded reverse shell payload.",
+            "hint": "Analyze the decoded <b>Base64 PowerShell payload</b>. It reveals a TCP reverse shell client connecting outbound to a remote host over port 443. </br></br><b>Tip:</b> Ensure you don't confuse a malicious registry run key entry with a malicious WMI database entry. One is an encoded reverse shell payload, the other is a PowerShell download cradle.",
             "placeholder": "*****://********.****.**/",
             "correct_answers": [
                 "https://dormaire.euwf.cn/",
