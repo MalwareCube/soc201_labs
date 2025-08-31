@@ -4,7 +4,7 @@
     "assignee": "Tier 2 SOC – Intrusion Hunting",
     "module": "Collection at Scale",
     "status": "In Progress",
-    "time_estimate": "30 minutes",
+    "time_estimate": "60 minutes",
     "tags": ["kansa", "artifact analysis", "stacking", "aggregation"],
     "instructions_path": "/data/IR-8842/instructions.html",
 
